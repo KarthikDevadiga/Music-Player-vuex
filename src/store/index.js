@@ -2,17 +2,17 @@ import { createStore } from 'vuex';
 
 export default createStore({
   state: {
-    toogleAuth: true,
+    toogleAuthProperty: true,
   },
   mutations: {
     toogleAuth(state) {
-      state.toogleAuth = !state.toogleAuth;
-      console.log(state.toogleAuth);
+      state.toogleAuthProperty = !state.toogleAuthProperty;
+      console.log(state.toogleAuthProperty);
     },
   },
   getters: {
     getAuthToogle(state) {
-      return state.toogleAuth;
+      return state.toogleAuthProperty;
     },
   },
 });
