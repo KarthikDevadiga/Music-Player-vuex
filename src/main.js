@@ -6,5 +6,10 @@ import store from './store';
 import './assets/tailwind.css';
 import './assets/main.css';
 import './assets/img/header.png';
+import veeValidationPlugin from './include/validation';
 
-createApp(App).use(store).use(router).mount('#app');
+const app = createApp(App);
+app.use(store);
+app.use(router);
+app.use(veeValidationPlugin);
+app.mount('#app');
