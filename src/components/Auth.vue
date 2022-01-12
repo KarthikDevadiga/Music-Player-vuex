@@ -78,15 +78,17 @@
             </button>
           </form>
           <!-- Registration Form -->
-          <form v-else>
+          <vee-form v-else :validation-schema="schema" @submit.prevent="">
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
-              <input
+              <vee-field
+                name="name"
                 type="text"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Name"
               />
+              <error-message class="text-red-600" name="name"></error-message>
             </div>
             <!-- Email -->
             <div class="mb-3">
@@ -145,7 +147,7 @@
             >
               Submit
             </button>
-          </form>
+          </vee-form>
         </div>
       </div>
     </div>
@@ -160,6 +162,9 @@ export default {
   data() {
     return {
       tab: 'login',
+      schema: {
+        name: 'required',
+      },
     };
   },
   computed: {
