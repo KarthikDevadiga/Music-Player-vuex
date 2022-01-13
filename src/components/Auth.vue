@@ -78,66 +78,86 @@
             </button>
           </form>
           <!-- Registration Form -->
-          <form v-else>
+          <vee-form v-else :validation-schema="schema">
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
-              <input
+              <vee-field
+                name="name"
                 type="text"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Name"
               />
+              <error-message name="name" style="color: red"></error-message>
             </div>
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input
+              <vee-field
+                name="email"
                 type="email"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Email"
               />
+              <error-message name="email" style="color: red"></error-message>
             </div>
             <!-- Age -->
             <div class="mb-3">
               <label class="inline-block mb-2">Age</label>
-              <input
+              <vee-field
+                name="age"
                 type="number"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
               />
+              <error-message name="age" style="color: red"></error-message>
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input
+              <vee-field
+                name="password"
                 type="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Password"
               />
+              <error-message name="password" style="color: red"></error-message>
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Confirm Password</label>
-              <input
+              <vee-field
+                name="confirmPassword"
                 type="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Confirm Password"
               />
+              <error-message name="confirmPassword" style="color: red"></error-message>
             </div>
             <!-- Country -->
             <div class="mb-3">
               <label class="inline-block mb-2">Country</label>
-              <select
+              <vee-field
+                name="movie"
+                as="select"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
               >
                 <option value="USA">USA</option>
                 <option value="Mexico">Mexico</option>
                 <option value="Germany">Germany</option>
-              </select>
+              </vee-field>
+              <error-message name="movie" style="color: red"></error-message>
             </div>
             <!-- TOS -->
             <div class="mb-3 pl-6">
-              <input type="checkbox" class="w-4 h-4 float-left -ml-6 mt-1 rounded" />
+              <!-- prettier-ignore -->
+              <vee-field
+                name="tos"
+                type="checkbox"
+                class="w-4 h-4 float-left -ml-6 mt-1 rounded"
+                value=1
+              />
               <label class="inline-block">Accept terms of service</label>
+              <error-message name="tos" style="color: red"></error-message>
             </div>
             <button
               type="submit"
@@ -145,7 +165,7 @@
             >
               Submit
             </button>
-          </form>
+          </vee-form>
         </div>
       </div>
     </div>
@@ -160,6 +180,15 @@ export default {
   data() {
     return {
       tab: 'login',
+      schema: {
+        name: 'required|alphaSpace',
+        email: 'required|email',
+        age: 'required|integer|minValue:18',
+        password: 'required',
+        confirmPassword: 'required|confiremed:@password',
+        movie: 'required',
+        tos: 'required',
+      },
     };
   },
   computed: {
@@ -167,6 +196,9 @@ export default {
   },
   methods: {
     ...mapMutations(['toogleAuth']),
+    register(values) {
+      console.log(values);
+    },
   },
 };
 </script>

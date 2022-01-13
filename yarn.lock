@@ -1489,6 +1489,11 @@
   dependencies:
     "@types/yargs-parser" "*"
 
+"@vee-validate/rules@^4.5.7":
+  version "4.5.7"
+  resolved "https://registry.yarnpkg.com/@vee-validate/rules/-/rules-4.5.7.tgz#951b3f3525fb762de4ede7f67aad21675f32ff18"
+  integrity sha512-8Q89wiOJ7cdYDOHTBAWr0/CyLvqPtTTxMieEhYFiL//PpkrsmCPuad1wziz1tck2U15J0IXA01/lwrq/J3VD7g==
+
 "@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
   version "1.2.1"
   resolved "https://registry.nlark.com/@vue/babel-helper-vue-jsx-merge-props/download/@vue/babel-helper-vue-jsx-merge-props-1.2.1.tgz#31624a7a505fb14da1d58023725a4c5f270e6a81"
