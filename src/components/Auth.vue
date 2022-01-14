@@ -78,7 +78,7 @@
             </button>
           </form>
           <!-- Registration Form -->
-          <vee-form v-else :validation-schema="schema">
+          <vee-form v-else :validation-schema="schema" :initial-valuefa="userData">
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
@@ -114,12 +114,15 @@
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <vee-field
-                name="password"
-                type="password"
-                class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                placeholder="Password"
-              />
+              <vee-field name="password" :bails="false" v-slot="{ field, errors }">
+                <input
+                  type="password"
+                  class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+                  placeholder="Password"
+                  v-bind="field"
+                />
+                <div class="text-red-600" v-for="e in errors" :key="e">{{ e }}</div>
+              </vee-field>
               <error-message name="password" style="color: red"></error-message>
             </div>
             <!-- Confirm Password -->
@@ -188,6 +191,9 @@ export default {
         confirmPassword: 'required|confiremed:@password',
         movie: 'required',
         tos: 'required',
+      },
+      userData: {
+        movie: 'Germany',
       },
     };
   },
