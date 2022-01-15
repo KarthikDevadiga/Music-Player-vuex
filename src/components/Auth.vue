@@ -78,7 +78,7 @@
             </button>
           </form>
           <!-- Registration Form -->
-          <vee-form v-else :validation-schema="schema" :initial-valuefa="userData">
+          <vee-form v-else :validation-schema="schema" :initial-values="userData">
             <!-- Name -->
             <div class="mb-3">
               <label class="inline-block mb-2">Name</label>
