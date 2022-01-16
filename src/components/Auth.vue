@@ -123,7 +123,6 @@
                 />
                 <div class="text-red-600" v-for="e in errors" :key="e">{{ e }}</div>
               </vee-field>
-              <error-message name="password" style="color: red"></error-message>
             </div>
             <!-- Confirm Password -->
             <div class="mb-3">
@@ -187,7 +186,7 @@ export default {
         name: 'required|alphaSpace',
         email: 'required|email',
         age: 'required|integer|minValue:18',
-        password: 'required',
+        password: 'required|length:5',
         confirmPassword: 'required|confiremed:@password',
         movie: 'required',
         tos: 'required',
