@@ -51,24 +51,28 @@
           </ul>
 
           <!-- Login Form -->
-          <form v-if="tab === 'login'">
+          <vee-form v-if="tab === 'login'" :validation-schema="schema">
             <!-- Email -->
             <div class="mb-3">
               <label class="inline-block mb-2">Email</label>
-              <input
+              <vee-field
+                name="name"
                 type="email"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Enter Email"
               />
+              <error-message name="name" style="color: red"></error-message>
             </div>
             <!-- Password -->
             <div class="mb-3">
               <label class="inline-block mb-2">Password</label>
-              <input
+              <vee-field
+                name="loginPassword"
                 type="password"
                 class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
                 placeholder="Password"
               />
+              <error-message name="loginPassword" style="color: red"></error-message>
             </div>
             <button
               type="submit"
@@ -76,7 +80,7 @@
             >
               Submit
             </button>
-          </form>
+          </vee-form>
           <!-- Registration Form -->
           <vee-form v-else :validation-schema="schema" :initial-values="userData">
             <!-- Name -->
@@ -190,6 +194,7 @@ export default {
         confirmPassword: 'required|confiremed:@password',
         movie: 'required',
         tos: 'required',
+        loginPassword: 'required',
       },
       userData: {
         movie: 'Germany',
