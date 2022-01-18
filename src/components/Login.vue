@@ -1,6 +1,6 @@
 <template>
   <!-- Login Form -->
-  <vee-form :validation-schema="schema" @submit="call($event, onSubmit)">
+  <vee-form :validation-schema="schema" @submit.prevent="call">
     <!-- Email -->
     <div class="mb-3">
       <label class="inline-block mb-2">Email</label>
