@@ -1,6 +1,6 @@
 <template>
   <!-- Login Form -->
-  <vee-form :validation-schema="schema">
+  <vee-form :validation-schema="schema" @submit="call($event, onSubmit)">
     <!-- Email -->
     <div class="mb-3">
       <label class="inline-block mb-2">Email</label>
@@ -42,6 +42,11 @@ export default {
         password: 'required|length:5',
       },
     };
+  },
+  methods: {
+    call(values) {
+      console.log(values);
+    },
   },
 };
 </script>

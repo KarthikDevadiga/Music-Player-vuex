@@ -1,6 +1,6 @@
 <template>
   <!-- Registration Form -->
-  <vee-form :validation-schema="schema" :initial-values="userData">
+  <vee-form :validation-schema="schema" :initial-values="userData" @submit.prevent="call">
     <!-- Name -->
     <div class="mb-3">
       <label class="inline-block mb-2">Name</label>
@@ -86,6 +86,7 @@
     <button
       type="submit"
       class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
+      @click.prevent="call"
     >
       Submit
     </button>
@@ -110,6 +111,11 @@ export default {
         movie: 'Germany',
       },
     };
+  },
+  methods: {
+    call() {
+      console.log('done');
+    },
   },
 };
 </script>
