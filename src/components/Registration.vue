@@ -1,11 +1,9 @@
 <template>
+  <div v-if="dialogData.dialog_box" class="dialog" :class="{ red: dialogData.dialog_red }">
+    {{ dialogData.dialog_msg }}
+  </div>
   <!-- Registration Form -->
-  <vee-form
-    :validation-schema="schema"
-    :initial-values="userData"
-    @submit.prevent="call"
-    v-slot="{ values }"
-  >
+  <vee-form :validation-schema="schema" :initial-values="userData" @submit.prevent="call">
     <!-- Name -->
     <div class="mb-3">
       <label class="inline-block mb-2">Name</label>
@@ -91,7 +89,7 @@
     <button
       type="submit"
       class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-      @click.prevent="call($event, values)"
+      @click.prevent="call"
     >
       Submit
     </button>
@@ -115,13 +113,36 @@ export default {
       userData: {
         movie: 'Germany',
       },
+      dialogData: {
+        dialog_box: false,
+        dialog_msg: 'your response is being submited',
+        dialog_red: false,
+        dialog_blue: true,
+        dialog_green: false,
+      },
     };
   },
   methods: {
-    call(e, values) {
-      console.log(e.currentTarget);
-      console.log(values);
+    call() {
+      this.dialogData.dialog_box = true;
+      this.dialogData.dialog_green = true;
     },
   },
 };
 </script>
+
+<style scoped>
+.dialog {
+  padding: 1rem;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(40, 155, 170);
+  color: #fff;
+}
+.red {
+  background-color: red;
+  color: aliceblue;
+}
+</style>
