@@ -1,4 +1,4 @@
-import fireBase from 'firebase/app';
+import fireBase from 'firebase/app'; // core of firebase sdk
 import 'firebase/auth';
 
 const firebaseConfig = {
