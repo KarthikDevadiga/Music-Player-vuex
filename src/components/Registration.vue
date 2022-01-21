@@ -1,5 +1,9 @@
 <template>
-  <div v-if="dialogData.dialog_box" class="dialog" :class="{ red: dialogData.dialog_red }">
+  <div
+    v-if="dialogData.dialog_box"
+    class="dialog"
+    :class="{ red: dialogData.dialog_red, green: dialogData.dialog_green }"
+  >
     {{ dialogData.dialog_msg }}
   </div>
   <!-- Registration Form -->
@@ -131,15 +135,18 @@ export default {
   },
   methods: {
     async call(values) {
+      // trigered when register button is clicked
+      this.dialogData.dialog_red = false;
+      this.dialogData.dialog_green = false;
+      this.dialogData.dialog_msg = 'your response is being submited';
       this.dialogData.dialog_box = true;
       this.dialogData.dialog_blue = true;
       console.log(values);
       try {
         await firebase.auth().createUserWithEmailAndPassword(values.email, values.password);
       } catch (error) {
-        console.log(error);
         this.dialogData.dialog_red = true;
-        this.dialogData.dialog_msg = 'Error please check your data';
+        this.dialogData.dialog_msg = error.message;
         return;
       }
       this.dialogData.dialog_msg = 'submitted';
@@ -151,7 +158,9 @@ export default {
 
 <style scoped>
 .dialog {
-  padding: 1rem;
+  padding: 1rem 25%;
+  text-align: center;
+  font-weight: bold;
   border-radius: 15px;
   display: flex;
   align-items: center;
@@ -161,6 +170,10 @@ export default {
 }
 .red {
   background-color: red;
+  color: aliceblue;
+}
+.green {
+  background-color: rgb(38, 192, 11);
   color: aliceblue;
 }
 </style>
