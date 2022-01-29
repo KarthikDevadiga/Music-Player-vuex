@@ -83,6 +83,20 @@
       </vee-field>
       <error-message name="country" style="color: red"></error-message>
     </div>
+    <!-- artist or listerner -->
+    <div class="mb-3">
+      <label class="inline-block mb-2">You are</label>
+      <vee-field
+        name="purpose"
+        as="select"
+        class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
+      >
+        <option value="listener">Listener</option>
+        <option value="artist">Artist</option>
+        <!-- <option value="" disabled selected>Select your role</option> -->
+      </vee-field>
+      <error-message name="purpose" style="color: red"></error-message>
+    </div>
     <!-- TOS -->
     <div class="mb-3 pl-6">
       <!-- prettier-ignore -->
@@ -118,6 +132,7 @@ export default {
         password: 'required|length:6',
         confirmPassword: 'required|confiremed:@password',
         country: 'required',
+        purpose: 'purpose',
         tos: 'required',
         loginPassword: 'required',
       },
@@ -152,19 +167,32 @@ export default {
       // storing in fireStore (DB)
       try {
         await userData.add({
+          // returns a promise
           name: values.name,
           email: values.email,
           age: values.age,
           country: values.country,
+          role: values.purpose,
         });
       } catch (error) {
         this.dialogData.dialog_red = true;
         this.dialogData.dialog_msg = error.message;
+        // this.clear_fields(values);
         return;
       }
       this.dialogData.dialog_msg = 'submitted';
       this.dialogData.dialog_green = true;
+      // this.clear_fields(values);
     },
+    // clear_fields(values) {
+    //   values.name = '';
+    //   values.email = '';
+    //   values.password = '';
+    //   values.country = '';
+    //   values.purpose = '';
+    //   values.tos = '';
+    //   values.confirmPassword = '';
+    // },
   },
 };
 </script>

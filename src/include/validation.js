@@ -29,12 +29,14 @@ export default {
     defineRule('maxValue', maxValue);
     defineRule('confiremed', confirmed);
     defineRule('length', length);
+    defineRule('purpose', required); // adding custome message
 
     configure({
       generateMessage: (ctx) => {
         const messages = {
           required: `The field ${ctx.field} is Empty.`,
           length: `Minimum length must be 5`,
+          purpose: 'please select your role',
         };
         const message = messages[ctx.rule.name] ? messages[ctx.rule.name] : `Not valid`;
         return message;
