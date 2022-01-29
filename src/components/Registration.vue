@@ -73,7 +73,7 @@
     <div class="mb-3">
       <label class="inline-block mb-2">Country</label>
       <vee-field
-        name="movie"
+        name="country"
         as="select"
         class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
       >
@@ -81,7 +81,7 @@
         <option value="Mexico">Mexico</option>
         <option value="Germany">Germany</option>
       </vee-field>
-      <error-message name="movie" style="color: red"></error-message>
+      <error-message name="country" style="color: red"></error-message>
     </div>
     <!-- TOS -->
     <div class="mb-3 pl-6">
@@ -106,7 +106,7 @@
 </template>
 
 <script>
-import firebase from '@/include/fireBase';
+import { auth, userData } from '@/include/fireBase';
 
 export default {
   data() {
@@ -117,12 +117,12 @@ export default {
         age: 'required|integer|minValue:18',
         password: 'required|length:6',
         confirmPassword: 'required|confiremed:@password',
-        movie: 'required',
+        country: 'required',
         tos: 'required',
         loginPassword: 'required',
       },
       userData: {
-        movie: 'Germany',
+        country: 'Germany',
       },
       dialogData: {
         dialog_box: false,
@@ -143,7 +143,20 @@ export default {
       this.dialogData.dialog_blue = true;
       console.log(values);
       try {
-        await firebase.auth().createUserWithEmailAndPassword(values.email, values.password);
+        await auth.createUserWithEmailAndPassword(values.email, values.password);
+      } catch (error) {
+        this.dialogData.dialog_red = true;
+        this.dialogData.dialog_msg = error.message;
+        return;
+      }
+      // storing in fireStore (DB)
+      try {
+        await userData.add({
+          name: values.name,
+          email: values.email,
+          age: values.age,
+          country: values.country,
+        });
       } catch (error) {
         this.dialogData.dialog_red = true;
         this.dialogData.dialog_msg = error.message;
