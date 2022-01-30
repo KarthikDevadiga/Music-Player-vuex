@@ -120,8 +120,6 @@
 </template>
 
 <script>
-import { auth, userData } from '@/include/fireBase';
-
 export default {
   data() {
     return {
@@ -156,33 +154,15 @@ export default {
       this.dialogData.dialog_msg = 'your response is being submited';
       this.dialogData.dialog_box = true;
       this.dialogData.dialog_blue = true;
-      console.log(values);
-      let userCred = null; // stores the user credentioal returned by auth (tokens, uid)
+      console.log(values); // stores the user credentioal returned by auth (tokens, uid)
       try {
-        userCred = await auth.createUserWithEmailAndPassword(values.email, values.password); // if user is not authenticated this will set to null
-        console.log(userCred);
+        this.$store.dispatch('register', values);
       } catch (error) {
         this.dialogData.dialog_red = true;
         this.dialogData.dialog_msg = error.message;
         return;
       }
-      // storing in fireStore (DB)
-      try {
-        await userData.add({
-          // returns a promise
-          name: values.name,
-          email: values.email,
-          age: values.age,
-          country: values.country,
-          role: values.purpose,
-        });
-      } catch (error) {
-        this.dialogData.dialog_red = true;
-        this.dialogData.dialog_msg = error.message;
-        // this.clear_fields(values);
-        return;
-      }
-      this.$store.dispatch('tooglelogin'); // can pass other value (payload) => this.$store.dispatch('tooglelogin', value);
+
       this.dialogData.dialog_msg = 'submitted';
       this.dialogData.dialog_green = true;
       // this.clear_fields(values);
