@@ -182,6 +182,7 @@ export default {
         // this.clear_fields(values);
         return;
       }
+      this.$store.dispatch('tooglelogin'); // can pass other value (payload) => this.$store.dispatch('tooglelogin', value);
       this.dialogData.dialog_msg = 'submitted';
       this.dialogData.dialog_green = true;
       // this.clear_fields(values);
