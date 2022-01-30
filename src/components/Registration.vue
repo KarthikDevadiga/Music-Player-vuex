@@ -157,8 +157,10 @@ export default {
       this.dialogData.dialog_box = true;
       this.dialogData.dialog_blue = true;
       console.log(values);
+      let userCred = null; // stores the user credentioal returned by auth (tokens, uid)
       try {
-        await auth.createUserWithEmailAndPassword(values.email, values.password);
+        userCred = await auth.createUserWithEmailAndPassword(values.email, values.password); // if user is not authenticated this will set to null
+        console.log(userCred);
       } catch (error) {
         this.dialogData.dialog_red = true;
         this.dialogData.dialog_msg = error.message;
