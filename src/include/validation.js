@@ -18,6 +18,7 @@ import {
 
 export default {
   install(app) {
+    // Whenever you call Vue.use the install function will be called.
     app.component('VeeForm', VeeForm);
     app.component('VeeField', VeeField);
     app.component('ErrorMessage', ErrorMessage);

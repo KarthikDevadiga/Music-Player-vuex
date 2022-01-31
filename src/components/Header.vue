@@ -8,21 +8,17 @@
         <!-- Primary Navigation -->
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
-          <li>
-            <a
-              v-if="$store.getters.getUserLogin"
-              class="px-2 text-white"
-              href="#"
-              @click.prevent="toogleAuth"
-              >Logout</a
-            >
-            <a v-else class="px-2 text-white" href="#" @click.prevent="toogleAuth"
-              >Login / Register</a
-            >
+          <li v-if="$store.getters.getUserLogin">
+            <a class="px-2 text-white" href="#" @click.prevent="toogleAuth">Logout</a>
           </li>
-          <li>
-            <a class="px-2 text-white" href="#">Manage</a>
-          </li>
+          <templete v-else>
+            <li>
+              <a class="px-2 text-white" href="#">Manage</a>
+            </li>
+            <li>
+              <a class="px-2 text-white" href="#" @click.prevent="toogleAuth">Login / Register</a>
+            </li>
+          </templete>
         </ul>
       </div>
     </nav>
