@@ -44,6 +44,10 @@ export default createStore({
       await auth.signInWithEmailAndPassword(values.email, values.password);
       commit('TOGGLE_USER_LOGEDIN');
     },
+    async signOut({ commit }) {
+      await auth.signOut();
+      commit('TOGGLE_USER_LOGEDIN');
+    },
   },
   getters: {
     getAuthToogle(state) {

@@ -8,15 +8,15 @@
         <!-- Primary Navigation -->
         <ul class="flex flex-row mt-1">
           <!-- Navigation Links -->
-          <li v-if="$store.getters.getUserLogin">
-            <a class="px-2 text-white" href="#" @click.prevent="toogleAuth">Logout</a>
+          <li v-if="!$store.getters.getUserLogin">
+            <a class="px-2 text-white" href="#" @click.prevent="toogleAuth">Login / Register</a>
           </li>
-          <templete v-else>
+          <templete v-else class="flex flex-row mt-1">
             <li>
               <a class="px-2 text-white" href="#">Manage</a>
             </li>
             <li>
-              <a class="px-2 text-white" href="#" @click.prevent="toogleAuth">Login / Register</a>
+              <a class="px-2 text-white" href="#" @click.prevent="signOut">Logout</a>
             </li>
           </templete>
         </ul>
@@ -26,12 +26,13 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex'; // To acess state property => mapStates
 
 export default {
   name: 'Headeder',
   methods: {
-    ...mapMutations(['toogleAuth']),
+    ...mapMutations(['toogleAuth']), // this is responsible for showing regestration form
+    ...mapActions(['signOut']),
   },
 };
 </script>

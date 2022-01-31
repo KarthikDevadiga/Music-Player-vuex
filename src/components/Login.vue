@@ -75,6 +75,7 @@ export default {
       }
       this.dialogData.dialog_msg = 'submitted';
       this.dialogData.dialog_green = true;
+      window.location.reload();
     },
   },
 };
