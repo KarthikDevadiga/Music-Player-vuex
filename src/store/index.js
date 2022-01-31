@@ -48,3 +48,5 @@ export default createStore({
     getUserLogin: (state) => state.userLogedIn,
   },
 });
+
+// random comment
