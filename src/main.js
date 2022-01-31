@@ -7,9 +7,15 @@ import './assets/tailwind.css';
 import './assets/main.css';
 import './assets/img/header.png';
 import veeValidationPlugin from './include/validation';
+import { auth } from './include/fireBase';
 
-const app = createApp(App);
-app.use(store);
-app.use(router);
-app.use(veeValidationPlugin);
-app.mount('#app');
+let app;
+auth.onAuthStateChanged(() => {
+  if (!app) {
+    app = createApp(App);
+    app.use(store);
+    app.use(router);
+    app.use(veeValidationPlugin);
+    app.mount('#app');
+  }
+});

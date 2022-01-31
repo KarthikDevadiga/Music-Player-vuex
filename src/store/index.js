@@ -28,11 +28,17 @@ export default createStore({
         country: values.country,
         role: values.purpose,
       });
-      // storing additiona information but it is limited. we can only store display name and profile image
+      // storing additional information but it is limited. we can only store display name and profile image
       userCred.user.updateProfile({
         displayName: values.name,
       });
       commit('TOGGLE_USER_LOGEDIN'); // can pass other value (payload) => this.$store.dispatch('tooglelogin', value);
+    },
+    init_login({ commit }) {
+      const user = auth.currentUser;
+      if (user) {
+        commit('TOGGLE_USER_LOGEDIN');
+      }
     },
   },
   getters: {
