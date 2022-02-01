@@ -18,6 +18,7 @@ const routes = [
 ];
 
 const router = createRouter({
+  // function returning an object
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
