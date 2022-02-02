@@ -25,6 +25,7 @@ const router = createRouter({
   // env => enviornment
   // baseurl can be changed through vue cli
   routes,
+  linkExactActiveClass: 'text-yellow-500',
 });
 
 export default router;
