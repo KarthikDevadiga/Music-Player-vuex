@@ -5,16 +5,23 @@ import About from '@/views/About.vue';
 
 const routes = [
   {
+    name: 'home',
     path: '/',
     component: Home,
   },
   {
+    name: 'manage',
     path: '/manage',
     component: Manage,
   },
   {
+    name: 'about',
     path: '/about',
     component: About,
+  },
+  {
+    path: '/manage-music',
+    redirect: { name: 'manage' }, // redirects to manage if user trys any old link i.e music/manage-music
   },
 ];
 

@@ -6,7 +6,7 @@
       <router-link
         class="text-white font-bold uppercase text-2xl mr-4"
         exact-active-class="None"
-        to="/"
+        :to="{ name: 'home' }"
         >Music</router-link
       >
 
@@ -19,7 +19,7 @@
           </li>
           <template v-else class="flex flex-row mt-1">
             <li>
-              <router-link class="px-2 text-white" to="/manage">Manage</router-link>
+              <router-link class="px-2 text-white" :to="{ name: 'manage' }">Manage</router-link>
             </li>
             <li>
               <a class="px-2 text-white" href="#" @click.prevent="signOut">Logout</a>

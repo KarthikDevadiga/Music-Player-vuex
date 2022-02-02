@@ -135,3 +135,18 @@
     </div>
   </section>
 </template>
+
+<script>
+import store from '../store';
+
+export default {
+  beforeRouteEnter(to, from, next) {
+    console.log(store.getters.getUserLogin);
+    if (store.getters.getUserLogin) {
+      next();
+    } else {
+      next({ name: 'home' }); // also next(false)
+    }
+  },
+};
+</script>
