@@ -2,7 +2,7 @@
   <header id="header" class="bg-gray-700">
     <nav class="container mx-auto flex justify-start items-center py-5 px-4">
       <!-- App Name -->
-      <a class="text-white font-bold uppercase text-2xl mr-4" href="#">Music</a>
+      <router-link class="text-white font-bold uppercase text-2xl mr-4" to="/">Music</router-link>
 
       <div class="flex flex-grow items-center">
         <!-- Primary Navigation -->
@@ -13,7 +13,7 @@
           </li>
           <templete v-else class="flex flex-row mt-1">
             <li>
-              <a class="px-2 text-white" href="#">Manage</a>
+              <router-link class="px-2 text-white" to="/manage">Manage</router-link>
             </li>
             <li>
               <a class="px-2 text-white" href="#" @click.prevent="signOut">Logout</a>
