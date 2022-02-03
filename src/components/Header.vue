@@ -22,6 +22,9 @@
               <router-link class="px-2 text-white" :to="{ name: 'manage' }">Manage</router-link>
             </li>
             <li>
+              <router-link class="px-2 text-white" :to="{ name: 'about' }">About</router-link>
+            </li>
+            <li>
               <a class="px-2 text-white" href="#" @click.prevent="signOut">Logout</a>
             </li>
           </template>
@@ -32,13 +35,17 @@
 </template>
 
 <script>
-import { mapMutations, mapActions } from 'vuex'; // To acess state property => mapStates
+import { mapMutations } from 'vuex'; // To acess state property => mapStates
 
 export default {
   name: 'Headeder',
   methods: {
-    ...mapMutations(['toogleAuth']), // this is responsible for showing regestration form
-    ...mapActions(['signOut']),
+    ...mapMutations(['toogleAuth']),
+    signOut() {
+      this.$store.dispatch('signOut');
+      this.$router.push({ name: 'home' });
+    },
+    // this is responsible for showing regestration form
   },
 };
 </script>
