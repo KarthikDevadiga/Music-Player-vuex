@@ -1,6 +1,8 @@
 import fireBase from 'firebase/app'; // core of firebase sdk
 import 'firebase/auth';
 import 'firebase/firestore';
+import 'firebase/storage';
+
 // auth stores only some imformation like name and email and passwords
 // if we want store addition information we have to store it in database
 // in firbase database(newer databse) is called as firestore.
@@ -17,5 +19,10 @@ const firebaseConfig = {
 fireBase.initializeApp(firebaseConfig);
 const auth = fireBase.auth(); // returns an object which then will be passed to registration.vue
 const db = fireBase.firestore(); // Initialize an instance of Cloud Firestore: https://firebase.google.com/docs/firestore/quickstart?authuser=0#initialize
+const storage = fireBase.storage();
+// const ref = fireBase.ref();
 const userData = db.collection('users'); // "users" is name of our collection
-export { auth, userData };
+// prettier-ignore
+export {
+  auth, userData, storage,
+};

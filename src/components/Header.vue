@@ -43,7 +43,7 @@ export default {
     ...mapMutations(['toogleAuth']),
     signOut() {
       this.$store.dispatch('signOut');
-      this.$router.push({ name: 'home' });
+      this.$router.push({ name: 'home' }); // when signout button is clicked we are redirecting to home page
     },
     // this is responsible for showing regestration form
   },
