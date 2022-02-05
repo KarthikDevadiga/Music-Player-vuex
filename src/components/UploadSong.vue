@@ -57,7 +57,7 @@ export default {
           console.log(file.type);
           return;
         }
-        const storageRef = storage.ref(); // root folder
+        const storageRef = storage.ref(); // acessing root folder
         const songRef = storageRef.child(`songs/${file.name}`); // child directory
         const tasks = songRef.put(file);
         // prettier-ignore
@@ -68,9 +68,7 @@ export default {
         }) - 1;
 
         tasks.on('state_changed', (snapshot) => {
-          console.log(snapshot.bytesTransferred, snapshot.totalBytes);
           const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(progress);
           this.uploads[uploadIndex].current_progress = progress;
         });
       });
