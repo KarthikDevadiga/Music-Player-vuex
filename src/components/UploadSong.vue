@@ -20,24 +20,16 @@
       </div>
       <hr class="my-6" />
       <!-- Progess Bars -->
-      <div class="mb-4">
+      <div v-for="upload in uploads" :key="upload" class="mb-4">
         <!-- File Name -->
-        <div class="font-bold text-sm">Just another song.mp3</div>
+        <div class="font-bold text-sm">{{ upload.name }}</div>
         <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
           <!-- Inner Progress Bar -->
-          <div class="transition-all progress-bar bg-blue-400" style="width: 75%"></div>
-        </div>
-      </div>
-      <div class="mb-4">
-        <div class="font-bold text-sm">Just another song.mp3</div>
-        <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
-          <div class="transition-all progress-bar bg-blue-400" style="width: 35%"></div>
-        </div>
-      </div>
-      <div class="mb-4">
-        <div class="font-bold text-sm">Just another song.mp3</div>
-        <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
-          <div class="transition-all progress-bar bg-blue-400" style="width: 55%"></div>
+          <div
+            class="transition-all progress-bar bg-blue-400"
+            :class="'bg-blue-400'"
+            :style="{ width: upload.current_progress + '%' }"
+          ></div>
         </div>
       </div>
     </div>
@@ -52,13 +44,14 @@ export default {
   data() {
     return {
       dragEvent: false,
+      uploads: [],
     };
   },
   methods: {
     itemDroped($event) {
       this.dragEvent = false;
       console.log('item droped');
-      const files = [...$event.dataTransfer.files];
+      const files = [...$event.dataTransfer.files]; // destucturing onject into arrays
       files.forEach((file) => {
         if (file.type !== 'audio/mpeg') {
           console.log(file.type);
@@ -66,7 +59,20 @@ export default {
         }
         const storageRef = storage.ref(); // root folder
         const songRef = storageRef.child(`songs/${file.name}`); // child directory
-        songRef.put(file);
+        const tasks = songRef.put(file);
+        // prettier-ignore
+        const uploadIndex = this.uploads.push({
+          tasks,
+          current_progress: 0,
+          name: file.name,
+        }) - 1;
+
+        tasks.on('state_changed', (snapshot) => {
+          console.log(snapshot.bytesTransferred, snapshot.totalBytes);
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log(progress);
+          this.uploads[uploadIndex].current_progress = progress;
+        });
       });
     },
   },
