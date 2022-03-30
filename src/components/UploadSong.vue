@@ -6,6 +6,8 @@
     </div>
     <div class="p-6">
       <!-- Upload Dropbox -->
+      <!-- Upload Dropbox -->
+
       <div
         class="w-full px-10 py-20 rounded text-center cursor-pointer border border-dashed border-gray-400 text-gray-400 transition duration-500 hover:text-white hover:bg-green-400 hover:border-green-400 hover:border-solid"
         :class="{ 'text-white bg-green-400 border-green-400 border-solid': dragEvent }"
