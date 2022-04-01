@@ -20,12 +20,13 @@
       >
         <h5>Drop your files here</h5>
       </div>
+      <input type="file" multiple @change.prevent="itemDroped($event)" />
       <hr class="my-6" />
       <!-- Progess Bars -->
       <div v-for="upload in uploads" :key="upload" class="mb-4">
         <!-- File Name -->
-        <div class="font-bold text-sm"><i :class="upload.icon"></i>{{ upload.name }}</div>
-        <div class="flex h-4 overflow-hidden bg-gray-200 rounded">
+        <div class="font-bold text-sm"><i :class="upload.icon"></i>{{ ` ${upload.name}` }}</div>
+        <div class="flex h-4 overflow-hidden bg-gray-200 rounded" :class="upload.visibiltiy">
           <!-- Inner Progress Bar -->
           <div
             class="transition-all progress-bar"
@@ -52,8 +53,8 @@ export default {
   methods: {
     itemDroped($event) {
       this.dragEvent = false;
-      console.log('item droped');
-      const files = [...$event.dataTransfer.files]; // destucturing onject into arrays
+      console.log($event);
+      const files = $event.dataTransfer ? [...$event.dataTransfer.files] : [...$event.target.files]; // destucturing onject into arrays
       files.forEach((file) => {
         if (file.type !== 'audio/mpeg') {
           console.log(file.type);
@@ -70,6 +71,7 @@ export default {
           varient: 'bg-blue-400',
           icon: 'fas fa-spinner fa-spin',
           text_class: '',
+          visibility: 'visible',
         }) - 1;
         // prettier-ignore
         tasks.on(
@@ -82,6 +84,7 @@ export default {
             this.uploads[uploadIndex].varient = 'bg-red-400';
             this.uploads[uploadIndex].icon = 'fas fas-times';
             this.uploads[uploadIndex].text_class = 'text-red-400';
+            this.uploads[uploadIndex].visibiltiy = "visible";
           },
           async () => {
             const songData = {
@@ -95,8 +98,9 @@ export default {
             songData.url = await tasks.snapshot.ref.getDownloadURL();
             await songCollection.add(songData);
             this.uploads[uploadIndex].varient = 'bg-green-400';
-            this.uploads[uploadIndex].icon = 'fas fas-check';
+            this.uploads[uploadIndex].icon = 'fa fa-check';
             this.uploads[uploadIndex].text_class = 'text-green-400';
+            this.uploads[uploadIndex].visibiltiy = "invisible";
           },
         );
       });
