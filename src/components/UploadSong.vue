@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { storage } from '@/include/fireBase';
+import { storage, auth, songData as songCollection } from '@/include/fireBase';
 
 export default {
   name: 'UploadSong',
@@ -83,7 +83,17 @@ export default {
             this.uploads[uploadIndex].icon = 'fas fas-times';
             this.uploads[uploadIndex].text_class = 'text-red-400';
           },
-          () => {
+          async () => {
+            const songData = {
+              userId: auth.currentUser.uid,
+              displayName: auth.currentUser.displayName,
+              originalName: tasks.snapshot.ref.name,
+              modifiedName: tasks.snapshot.ref.name,
+              genre: '',
+              commentCount: 0,
+            };
+            songData.url = await tasks.snapshot.ref.getDownloadURL();
+            await songCollection.add(songData);
             this.uploads[uploadIndex].varient = 'bg-green-400';
             this.uploads[uploadIndex].icon = 'fas fas-check';
             this.uploads[uploadIndex].text_class = 'text-green-400';

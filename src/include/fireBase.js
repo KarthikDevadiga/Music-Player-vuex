@@ -21,8 +21,10 @@ const auth = fireBase.auth(); // returns an object which then will be passed to 
 const db = fireBase.firestore(); // Initialize an instance of Cloud Firestore: https://firebase.google.com/docs/firestore/quickstart?authuser=0#initialize
 const storage = fireBase.storage();
 // const ref = fireBase.ref();
-const userData = db.collection('users'); // "users" is name of our collection
+const userData = db.collection('users');
+const songData = db.collection('songData'); // "users" is name of our collection
+// "users" is name of our collection
 // prettier-ignore
 export {
-  auth, userData, storage,
+  auth, userData, storage, songData,
 };
