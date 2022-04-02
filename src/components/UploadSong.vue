@@ -80,7 +80,8 @@ export default {
             const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
             this.uploads[uploadIndex].current_progress = progress;
           },
-          () => {
+          (err) => {
+            console.log(err);
             this.uploads[uploadIndex].varient = 'bg-red-400';
             this.uploads[uploadIndex].icon = 'fas fas-times';
             this.uploads[uploadIndex].text_class = 'text-red-400';
@@ -103,6 +104,11 @@ export default {
             this.uploads[uploadIndex].visibiltiy = "invisible";
           },
         );
+      });
+    },
+    cancelUploads() {
+      this.uploads.forEach((ele) => {
+        ele.tasks.cancel();
       });
     },
   },
