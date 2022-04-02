@@ -105,15 +105,31 @@
 <script>
 // import store from '../store';
 import UploadSong from '@/components/UploadSong.vue';
+import { auth, songData } from '@/include/fireBase';
 
 export default {
   name: 'Manage',
+  data() {
+    return {
+      songs: [],
+    };
+  },
   components: {
     UploadSong,
   },
   beforeRouteLeave(to, from, next) {
     this.$refs.upload.cancelUploads();
     next();
+  },
+  async created() {
+    const snapshot = await songData.where('userId', '==', auth.currentUser.uid).get();
+    snapshot.forEach((document) => {
+      const song = {
+        ...document.data(),
+        docId: document.id,
+      };
+      this.songs.push(song);
+    });
   },
   // beforeRouteEnter(to, from, next) {
   //   console.log(store.getters.getUserLogin);
