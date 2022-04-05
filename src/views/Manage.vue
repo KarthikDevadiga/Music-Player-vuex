@@ -20,6 +20,7 @@
               :song="song"
               :updateSongs="updateSongs"
               :i="i"
+              :deleteFromData="deleteFromData"
             ></composition-item>
           </div>
         </div>
@@ -64,6 +65,9 @@ export default {
       console.log(this.songs[i].modifiedName);
       this.songs[i].modifiedName = values.modifiedName;
       this.songs[i].genre = values.genre;
+    },
+    deleteFromData(i) {
+      this.songs.splice(i, 1);
     },
   },
   // beforeRouteEnter(to, from, next) {

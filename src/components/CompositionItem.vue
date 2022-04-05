@@ -2,7 +2,10 @@
   <div class="border border-gray-200 p-3 mb-4 rounded">
     <div v-show="!edit">
       <h4 class="inline-block text-1xl font-bold">{{ song.modifiedName }}</h4>
-      <button class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right">
+      <button
+        @click.prevent="deleteSong"
+        class="ml-1 py-1 px-2 text-sm rounded text-white bg-red-600 float-right"
+      >
         <i class="fa fa-times"></i>
       </button>
       <button
@@ -64,10 +67,10 @@
 </template>
 
 <script>
-import { songData } from '@/include/fireBase';
+import { songData, storage } from '@/include/fireBase';
 
 export default {
-  props: ['song', 'updateSongs', 'i'],
+  props: ['song', 'updateSongs', 'i', 'deleteFromData'],
   data() {
     return {
       edit: false,
@@ -92,6 +95,7 @@ export default {
         console.log(values);
 
         await songData.doc(this.song.docId).update(values);
+        this.updateSongs(this.i, values);
       } catch (err) {
         console.log(err);
         this.inSubmission = false;
@@ -104,7 +108,30 @@ export default {
       this.showAlert = true;
       this.alertMsg = 'form is submited';
       this.alertVarient = 'bg-green-600';
-      this.updateSongs(this.i, values);
+    },
+    async deleteSong() {
+      this.inSubmission = true;
+      this.showAlert = true;
+      this.alertMsg = 'deleting...';
+      this.alertVarient = 'bg-blue-600';
+      const storageRef = storage.ref();
+      const songRef = storageRef.child(`songs/${this.song.originalName}`);
+      try {
+        await songRef.delete();
+        await songData.doc(this.song.docId).delete();
+        this.deleteFromData(this.index);
+      } catch (err) {
+        console.log(err);
+        this.inSubmission = false;
+        this.showAlert = true;
+        this.alertMsg = 'something wrong deleting your song';
+        this.alertVarient = 'bg-red-600';
+        return;
+      }
+      this.inSubmission = false;
+      this.showAlert = true;
+      this.alertMsg = 'song sucessfully deleted';
+      this.alertVarient = 'bg-green-600';
     },
   },
 };
