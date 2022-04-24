@@ -46,10 +46,7 @@ export default {
     UploadSong,
     CompositionItem,
   },
-  beforeRouteLeave(to, from, next) {
-    this.$refs.upload.cancelUploads();
-    next();
-  },
+
   async created() {
     const snapshot = await songData.where('userId', '==', auth.currentUser.uid).get();
     snapshot.forEach((document) => {
@@ -78,5 +75,9 @@ export default {
   //     next({ name: 'home' }); // also next(false)
   //   }
   // },
+  beforeRouteLeave(to, from, next) {
+    this.$refs.upload.cancelUploads();
+    next();
+  },
 };
 </script>
